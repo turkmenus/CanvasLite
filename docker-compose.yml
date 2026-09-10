@@ -30,10 +30,13 @@ services:
     networks:
       - canvaslite
     restart: unless-stopped
-    # Local quick-test port (remove or leave; Coolify domain setting overrides via Traefik)
-    ports:
-      - "${CANVASLITE_HOST_PORT:-8088}:80"
-    # Coolify will expose this service via the domain you configure in the UI.
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.canvaslite.entrypoints=http
+      - traefik.http.routers.canvaslite.rule=Host(`${CANVASLITE_HOST:-canvaslite.192.168.1.101.nip.io}`)
+      - traefik.http.routers.canvaslite.service=canvaslite
+      - traefik.http.services.canvaslite.loadbalancer.server.port=80
+      - coolify.managed=true
 
 volumes:
   mongo_data:

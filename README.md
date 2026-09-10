@@ -87,6 +87,7 @@ This repo now includes production Docker files so you can deploy it to your self
    - `JWT_SECRET` — strong random string
    - `MONGO_URI` — `mongodb://mongo:27017/canvaslite` (local container) or your own MongoDB URI
    - `REACT_APP_API_URL` — `/api` when using Coolify domain for the frontend
+   - `CANVASLITE_HOST` — domain for Traefik routing (e.g. `canvaslite.192.168.1.101.nip.io`)
 2. In Coolify: **Project → + New Resource → Docker Compose**
 3. Select the repo and branch, set compose file path to `docker-compose.yml`
 4. Add your domain in the resource settings (e.g. `canvaslite.192.168.1.101.nip.io`).
