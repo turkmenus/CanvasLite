@@ -29,6 +29,7 @@ services:
       - backend
     networks:
       - canvaslite
+      - coolify
     restart: unless-stopped
     labels:
       - traefik.enable=true
@@ -43,3 +44,7 @@ volumes:
 
 networks:
   canvaslite:
+    name: canvaslite_internal
+  coolify:
+    external: true
+    name: coolify
