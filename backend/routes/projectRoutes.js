@@ -22,7 +22,7 @@ const authMiddleware = (req, res, next) => {
 router.post("/save", authMiddleware, async (req, res) => {
   try {
     const { title, jsonData } = req.body;
-    const newProject = new Project({ userId: req.user.userId, title, jsonData });
+    const newProject = new Project({ userId: req.user.id, title, jsonData });
     await newProject.save();
     res.json({ message: "Project saved successfully" });
   } catch (err) {
@@ -33,7 +33,7 @@ router.post("/save", authMiddleware, async (req, res) => {
 // Get User Projects
 router.get("/my-projects", authMiddleware, async (req, res) => {
   try {
-    const projects = await Project.find({ userId: req.user.userId });
+    const projects = await Project.find({ userId: req.user.id });
     res.json(projects);
   } catch (err) {
     res.status(500).json({ message: "Server error" });

@@ -1,0 +1,42 @@
+name: canvaslite
+services:
+  backend:
+    build: ./backend
+    environment:
+      PORT: 5000
+      MONGO_URI: ${MONGO_URI:-mongodb://mongo:27017/canvaslite}
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-production}
+    networks:
+      - canvaslite
+    restart: unless-stopped
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:7
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - canvaslite
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        REACT_APP_API_URL: ${REACT_APP_API_URL:-/api}
+    depends_on:
+      - backend
+    networks:
+      - canvaslite
+    restart: unless-stopped
+    # Local quick-test port (remove or leave; Coolify domain setting overrides via Traefik)
+    ports:
+      - "${CANVASLITE_HOST_PORT:-8088}:80"
+    # Coolify will expose this service via the domain you configure in the UI.
+
+volumes:
+  mongo_data:
+
+networks:
+  canvaslite:

@@ -71,3 +71,28 @@ Contributions are welcome! Feel free to fork the repo, create a new branch, and 
 
 📃 License
 This project is licensed under the MIT License.
+
+## 🚀 Coolify Self-Host Deployment
+
+This repo now includes production Docker files so you can deploy it to your self-hosted Coolify instance in a few clicks.
+
+### What changed
+- `backend/Dockerfile` — Node.js 20 slim runtime
+- `frontend/Dockerfile` — multi-stage React build served by nginx, `/api` proxied to backend
+- `docker-compose.yml` — single public entrypoint (frontend), internal backend + MongoDB
+- `env.example` — local, self-hosted MongoDB by default (no cloud DB required)
+
+### Steps
+1. Fork or clone the repository and set the secrets in Coolify:
+   - `JWT_SECRET` — strong random string
+   - `MONGO_URI` — `mongodb://mongo:27017/canvaslite` (local container) or your own MongoDB URI
+   - `REACT_APP_API_URL` — `/api` when using Coolify domain for the frontend
+2. In Coolify: **Project → + New Resource → Docker Compose**
+3. Select the repo and branch, set compose file path to `docker-compose.yml`
+4. Add your domain in the resource settings (e.g. `canvaslite.192.168.1.101.nip.io`).
+5. Deploy.
+
+### Notes
+- Do **not** commit `.env` to git; add the values in Coolify Environment tab.
+- The backend is **not** exposed publicly; all API calls go through `/api` on the frontend domain.
+- If you want the backend on its own subdomain instead, remove the `/api` nginx proxy block and expose `backend` separately.

@@ -1,0 +1,9 @@
+# Local environment secrets
+.env
+
+# Node dependencies
+node_modules/
+
+# Local dev data
+*.log
+.DS_Store
