@@ -34,7 +34,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.canvaslite.entrypoints=http
-      - traefik.http.routers.canvaslite.rule=Host(`canvaslite.192.168.1.101.nip.io`, `canvaslite.192.168.1.101.nip.io.sslip.io`, `djb7q5a918tfwq4omaodnx51.192.168.1.101.nip.io.sslip.io`)
+      - traefik.http.routers.canvaslite.rule=Host(`canvaslite.192.168.1.101.nip.io`) || Host(`canvaslite.192.168.1.101.nip.io.sslip.io`) || Host(`djb7q5a918tfwq4omaodnx51.192.168.1.101.nip.io.sslip.io`)
       - traefik.http.routers.canvaslite.service=canvaslite
       - traefik.http.services.canvaslite.loadbalancer.server.port=80
       - coolify.managed=true
