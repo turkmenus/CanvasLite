@@ -44,7 +44,6 @@ volumes:
 
 networks:
   canvaslite:
-    name: canvaslite_internal
   coolify:
     external: true
     name: coolify
